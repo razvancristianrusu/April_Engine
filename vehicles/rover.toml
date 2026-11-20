@@ -1,0 +1,37 @@
+name = "rover"
+period = 0.001
+# How quickly (rad/s) the engine comes to believe in a steady force it was not told about.
+disturbance_bandwidth = 1.0
+
+# The whole assembly with its wheels locked, about its centre of mass.
+[body]
+mass = 11.2
+inertia = [[0.118815, 0.0, 0.0], [0.0, 0.151995, 0.0], [0.0, 0.0, 0.248319]]
+
+# Traction of each driven wheel, applied where it touches the ground.
+[[effector]]
+kind = "force"
+position = [0.0, 0.18, -0.096964]
+direction = [1.0, 0.0, 0.0]
+min = -20.0
+max = 20.0
+
+[[effector]]
+kind = "force"
+position = [0.0, -0.18, -0.096964]
+direction = [1.0, 0.0, 0.0]
+min = -20.0
+max = 20.0
+
+[allocation]
+# Fx Fy Fz Tx Ty Tz: wheels push forward and turn; the ground does the rest.
+priority = [1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+[law]
+kind = "ground_drive"
+position = { natural_frequency = 1.2, damping_ratio = 1.0 }
+heading = { natural_frequency = 6.0, damping_ratio = 1.0 }
+forward_axis = [1.0, 0.0, 0.0]
+up_axis = [0.0, 0.0, 1.0]
+max_acceleration = 1.5
+arrival_radius = 0.1

@@ -1,0 +1,42 @@
+name = "rocket"
+period = 0.001
+# How quickly (rad/s) the engine comes to believe in a steady force it was not told about.
+disturbance_bandwidth = 1.0
+
+[body]
+mass = 30.0
+inertia = [[10.0, 0.0, 0.0], [0.0, 10.0, 0.0], [0.0, 0.0, 0.5]]
+
+# One engine gimbaled 8 degrees, 1 m below the centre of mass, commanded as the three
+# components of its thrust. Side limit = 600 N * sin(8 deg).
+[[effector]]
+kind = "force"
+position = [0.0, 0.0, -1.0]
+direction = [1.0, 0.0, 0.0]
+min = -83.5
+max = 83.5
+
+[[effector]]
+kind = "force"
+position = [0.0, 0.0, -1.0]
+direction = [0.0, 1.0, 0.0]
+min = -83.5
+max = 83.5
+
+[[effector]]
+kind = "force"
+position = [0.0, 0.0, -1.0]
+direction = [0.0, 0.0, 1.0]
+min = 120.0
+max = 600.0
+
+[allocation]
+# Fx Fy Fz Tx Ty Tz: side force comes tied to pitch and yaw torque, and there is no roll.
+priority = [0.0, 0.0, 1.0, 1.0, 1.0, 0.0]
+
+[law]
+kind = "thrust_vectoring"
+position = { natural_frequency = 0.8, damping_ratio = 1.0 }
+attitude = { natural_frequency = 5.0, damping_ratio = 1.0 }
+thrust_axis = [0.0, 0.0, 1.0]
+max_acceleration = 2.0

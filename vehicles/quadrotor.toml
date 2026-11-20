@@ -1,0 +1,48 @@
+name = "quadrotor"
+period = 0.001
+# How quickly (rad/s) the engine comes to believe in a steady force it was not told about.
+disturbance_bandwidth = 1.0
+
+[body]
+mass = 1.2
+inertia = [[0.012, 0.0, 0.0], [0.0, 0.012, 0.0], [0.0, 0.0, 0.022]]
+
+# X layout; diagonal pairs spin the same way.
+[[effector]]
+kind = "rotor"
+position = [0.14, 0.14, 0.0]
+axis = [0.0, 0.0, 1.0]
+torque_per_thrust = 0.016
+max = 8.0
+
+[[effector]]
+kind = "rotor"
+position = [-0.14, -0.14, 0.0]
+axis = [0.0, 0.0, 1.0]
+torque_per_thrust = 0.016
+max = 8.0
+
+[[effector]]
+kind = "rotor"
+position = [0.14, -0.14, 0.0]
+axis = [0.0, 0.0, 1.0]
+torque_per_thrust = -0.016
+max = 8.0
+
+[[effector]]
+kind = "rotor"
+position = [-0.14, 0.14, 0.0]
+axis = [0.0, 0.0, 1.0]
+torque_per_thrust = -0.016
+max = 8.0
+
+[allocation]
+# Fx Fy Fz Tx Ty Tz: rotors cannot push sideways.
+priority = [0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+[law]
+kind = "thrust_vectoring"
+position = { natural_frequency = 1.5, damping_ratio = 1.0 }
+attitude = { natural_frequency = 12.0, damping_ratio = 0.9 }
+thrust_axis = [0.0, 0.0, 1.0]
+max_acceleration = 4.0

@@ -1,0 +1,11 @@
+[package]
+name = "april_engine_loader"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "Builds April Engine vehicles from description files"
+
+[dependencies]
+april_engine = { path = ".." }
+serde = { version = "1.0.229", features = ["derive"] }
+toml = "1.2.1"

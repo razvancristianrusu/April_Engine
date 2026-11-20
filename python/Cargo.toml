@@ -1,0 +1,13 @@
+[package]
+name = "april_engine_py"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+april_engine = { path = ".." }
+april_engine_loader = { version = "0.1.0", path = "../loader" }
+pyo3 = { version = "0.30.1", features = ["abi3-py39"] }
